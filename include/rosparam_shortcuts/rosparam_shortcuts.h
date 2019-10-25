@@ -99,6 +99,9 @@ bool get(const std::string &parent_name, const ros::NodeHandle &nh, const std::s
 bool get(const std::string &parent_name, const ros::NodeHandle &nh, const std::string &param_name,
          geometry_msgs::Pose &value);
 
+bool get(const std::string &parent_name, const ros::NodeHandle &nh, const std::string &param_name,
+         geometry_msgs::Quaternion &value);
+
 /**
  * \brief Output a string of values from an array for debugging
  * \param array of values

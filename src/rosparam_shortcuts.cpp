@@ -247,6 +247,34 @@ bool get(const std::string &parent_name, const ros::NodeHandle &nh, const std::s
   return true;
 }
 
+bool get(const std::string &parent_name, const ros::NodeHandle &nh, const std::string &param_name,
+         geometry_msgs::Quaternion &value)
+{
+  std::vector<double> values;
+  // Load a param
+  if (!nh.hasParam(param_name))
+  {
+    ROS_ERROR_STREAM_NAMED(parent_name, "Missing parameter '" << nh.getNamespace() << "/" << param_name << "'.");
+    return false;
+  }
+  nh.getParam(param_name, values);
+
+  if (values.size() == 4)
+  {
+    value.x = values.at(0);
+    value.y = values.at(1);
+    value.z = values.at(2);
+    value.w = values.at(3);
+    return true;
+  }
+  else
+  {
+    ROS_ERROR_STREAM_NAMED(parent_name, "Invalid number of doubles provided for Quaternion, size=" << values.size());
+    return false;
+  }
+}
+
+
 std::string getDebugArrayString(std::vector<double> values)
 {
   std::stringstream debug_values;
